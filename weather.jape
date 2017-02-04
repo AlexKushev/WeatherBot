@@ -1,0 +1,10 @@
+Phase:firstphase
+Input: Lookup
+Options: control = brill
+
+Rule: WeatherCategory
+(
+{Lookup.majorType == "weather"}
+): label
+-->
+:label.Weather = {rule= "WeatherCategory" }
