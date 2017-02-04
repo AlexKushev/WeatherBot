@@ -1,0 +1,7 @@
+1. wheather today for location
+2. temperature today for location
+3. humidity today for location
+4. 1, 2, 3 for different date, day of the week
+5. take umbrella?
+6. is it raining/snowing etc. today !!!
+

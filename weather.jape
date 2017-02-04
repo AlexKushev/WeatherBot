@@ -1,10 +1,10 @@
 Phase:firstphase
-Input: Lookup
-Options: control = brill
+Input: Lookup Token
+Options: control = appelt
 
 Rule: WeatherCategory
 (
-{Lookup.majorType == "weather"}
-): label
+{Token.root == "rain"} | {Lookup.majorType == "weather"}
+): match
 -->
-:label.Weather = {rule= "WeatherCategory" }
+:match.Weather = {rule= "WeatherCategory" string=:match.Token.root }
