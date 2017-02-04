@@ -1,0 +1,10 @@
+Phase: Test2
+Input: Date
+Options: control = appelt
+
+Rule: ConvertDate
+(
+ {Date}
+):match
+-->
+:match.Test = {rule = "ConvertDate"}

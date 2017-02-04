@@ -2,9 +2,9 @@ Phase:firstphase
 Input: Lookup Token
 Options: control = appelt
 
-Rule: WeatherCategory
+Rule: WeatherCondition
 (
 {Token.root == "rain"} | {Lookup.majorType == "weather"}
 ): match
 -->
-:match.Weather = {rule= "WeatherCategory" string=:match.Token.root }
+:match.WeatherCondition = {rule= "WeatherCondition" string=:match.Token.root }
