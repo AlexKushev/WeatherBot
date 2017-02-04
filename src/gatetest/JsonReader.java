@@ -64,17 +64,21 @@ public class JsonReader {
 		JSONObject jsonObject = new JSONObject(json);
 		JSONArray JSONArray_weather = jsonObject.getJSONArray("weather");
 		String resultMain = null;
+		String resultDescription = null;
 		if (JSONArray_weather.length() > 0) {
 			JSONObject JSONObject_weather = JSONArray_weather.getJSONObject(0);
 			resultMain = JSONObject_weather.getString("main");
+			resultDescription = JSONObject_weather.getString("description");
+		}
+
+		if (resultMain.toLowerCase().contains(condition.toLowerCase())) {
 			System.out.println(resultMain);
 			System.out.println(condition);
-		}
-		
-		if (resultMain.toLowerCase().contains(condition.toLowerCase())) {
+			System.out.println("Yes " + resultDescription);
 			return true;
 		}
 		
+		System.out.println("No");
 		return false;
 	}
 

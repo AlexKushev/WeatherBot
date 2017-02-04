@@ -37,7 +37,7 @@ public class DataConverter {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(convertUnixToDate(TEST_VALUE));
+		System.out.println(convertUnixToDate(1486641600));
 		System.out.println(convertDateToUnix(TEST_DATE));
 
 	}
