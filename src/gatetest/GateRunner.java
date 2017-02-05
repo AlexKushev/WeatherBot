@@ -1,10 +1,6 @@
 package gatetest;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import gate.AnnotationSet;
 import gate.Corpus;
@@ -63,18 +59,5 @@ public class GateRunner {
 				gateParser.isSpecificConditionCheck(annSet));
 		System.out.println(gateParser.getDate(annSet));
 		
-		Calendar calendar = Calendar.getInstance();
-	
-		Date date = calendar.getTime();
-		
-		while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-			calendar.add(Calendar.DATE, 1);
-		}
-		
-		System.out.println(calendar.getTime().toString());
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
-
-
-	
 	}
 }
