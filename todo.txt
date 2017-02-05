@@ -1,7 +1,6 @@
 1. weather today for location
 2. temperature today for location
 3. humidity today for location
-4. 1, 2, 3 for different date, day of the week
+4. 1, 2, 3 for different date, day of the week - done
 5. take umbrella?
-6. is it raining/snowing etc. today !!!
-
+6. is it raining/snowing etc. today - done (rainy, sunny?)
