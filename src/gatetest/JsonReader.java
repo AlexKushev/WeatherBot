@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,9 +15,10 @@ import org.json.JSONObject;
 public class JsonReader {
 
 	private static String API_KEY = "09d51d887bc97a501affa2ab1511b63a";
+	private static String KEY = "00470eef42ab425393a165823170502";
 
 	public static String generateApiCallURL(String city) {
-		String url = String.format("http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, API_KEY);
+		String url = String.format("http://api.apixu.com/v1/forecast.json?key=%s&q=%s&days=7", KEY, city);
 		System.out.println(url);
 		return url;
 	}
@@ -60,102 +62,78 @@ public class JsonReader {
 		return result;
 	}
 
-	public static boolean checkForCondition(String json, String condition) {
+	public static void main(String[] args) throws ParseException {
+		String json = getJsonWithData("Sofia");
+		System.out.println(json);
 		JSONObject jsonObject = new JSONObject(json);
-		JSONArray JSONArray_weather = jsonObject.getJSONArray("weather");
-		String resultMain = null;
-		String resultDescription = null;
-		if (JSONArray_weather.length() > 0) {
-			JSONObject JSONObject_weather = JSONArray_weather.getJSONObject(0);
-			resultMain = JSONObject_weather.getString("main");
-			resultDescription = JSONObject_weather.getString("description");
+		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
+		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
+		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
+			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
+			System.out.println(JSONObject_weather.get("date"));
 		}
 
-		if (resultMain.toLowerCase().contains(condition.toLowerCase())) {
-			System.out.println(resultMain);
-			System.out.println(condition);
-			System.out.println("Yes " + resultDescription);
-			return true;
-		}
-		
-		System.out.println("No");
-		return false;
 	}
 
-	static private String ParseResult(String json) throws JSONException {
-
-		String parsedResult = "";
-
+	public static void checkForCondition(String json, String condition, String date) {
+		String conditionForCurrentDay = null;
 		JSONObject jsonObject = new JSONObject(json);
+		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
+		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
+		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
+			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
+			if (JSONObject_weather.get("date").equals(date)) {
+				conditionForCurrentDay = JSONObject_weather.getJSONObject("day").getJSONObject("condition").get("text")
+						.toString();
+				break;
+			}
+		}
 
-		parsedResult += "Number of object = " + jsonObject.length() + "\n\n";
-
-		// "coord"
-		JSONObject JSONObject_coord = jsonObject.getJSONObject("coord");
-		Double result_lon = JSONObject_coord.getDouble("lon");
-		Double result_lat = JSONObject_coord.getDouble("lat");
-
-		// "sys"
-		JSONObject JSONObject_sys = jsonObject.getJSONObject("sys");
-		String result_country = JSONObject_sys.getString("country");
-		int result_sunrise = JSONObject_sys.getInt("sunrise");
-		int result_sunset = JSONObject_sys.getInt("sunset");
-
-		// "weather"
-		String result_weather;
-		JSONArray JSONArray_weather = jsonObject.getJSONArray("weather");
-		if (JSONArray_weather.length() > 0) {
-			JSONObject JSONObject_weather = JSONArray_weather.getJSONObject(0);
-			int result_id = JSONObject_weather.getInt("id");
-			String result_main = JSONObject_weather.getString("main");
-			String result_description = JSONObject_weather.getString("description");
-			String result_icon = JSONObject_weather.getString("icon");
-
-			result_weather = "weather\tid: " + result_id + "\tmain: " + result_main + "\tdescription: "
-					+ result_description + "\ticon: " + result_icon;
+		if (conditionForCurrentDay.toLowerCase().contains(condition.toLowerCase())) {
+			System.out.println("Yes ( " + conditionForCurrentDay + " )");
 		} else {
-			result_weather = "weather empty!";
+			System.out.println("No ( " + conditionForCurrentDay + " )");
 		}
 
-		// "base"
-		String result_base = jsonObject.getString("base");
-
-		// "main"
-		JSONObject JSONObject_main = jsonObject.getJSONObject("main");
-		Double result_temp = JSONObject_main.getDouble("temp");
-		Double result_pressure = JSONObject_main.getDouble("pressure");
-		Double result_humidity = JSONObject_main.getDouble("humidity");
-		Double result_temp_min = JSONObject_main.getDouble("temp_min");
-		Double result_temp_max = JSONObject_main.getDouble("temp_max");
-
-		// "wind"
-		JSONObject JSONObject_wind = jsonObject.getJSONObject("wind");
-		Double result_speed = JSONObject_wind.getDouble("speed");
-		// Double result_gust = JSONObject_wind.getDouble("gust");
-		Double result_deg = JSONObject_wind.getDouble("deg");
-		String result_wind = "wind\tspeed: " + result_speed + "\tdeg: " + result_deg;
-
-		// "clouds"
-		JSONObject JSONObject_clouds = jsonObject.getJSONObject("clouds");
-		int result_all = JSONObject_clouds.getInt("all");
-
-		// "dt"
-		int result_dt = jsonObject.getInt("dt");
-
-		// "id"
-		int result_id = jsonObject.getInt("id");
-
-		// "name"
-		String result_name = jsonObject.getString("name");
-
-		// "cod"
-		int result_cod = jsonObject.getInt("cod");
-
-		return "coord\tlon: " + result_lon + "\tlat: " + result_lat + "\n" + "sys\tcountry: " + result_country
-				+ "\tsunrise: " + result_sunrise + "\tsunset: " + result_sunset + "\n" + result_weather + "\n"
-				+ "base: " + result_base + "\n" + "main\ttemp: " + result_temp + "\thumidity: " + result_humidity
-				+ "\tpressure: " + result_pressure + "\ttemp_min: " + result_temp_min + "\ttemp_max: " + result_temp_min
-				+ "\n" + result_wind + "\n" + "clouds\tall: " + result_all + "\n" + "dt: " + result_dt + "\n" + "id: "
-				+ result_id + "\n" + "name: " + result_name + "\n" + "cod: " + result_cod + "\n" + "\n";
 	}
+
+	public static void checkForTemperatureOrHumidity(String json, String text, String date) {
+		String temperature = null;
+		JSONObject jsonObject = new JSONObject(json);
+		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
+		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
+		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
+			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
+			if (JSONObject_weather.get("date").equals(date)) {
+				temperature = JSONObject_weather.getJSONObject("day").get("avgtemp_c").toString();
+				System.out.println("Temperature : " + temperature);
+				break;
+			}
+		}
+	}
+
+	public static void returnForecast(String json, String date) {
+		JSONObject jsonObject = new JSONObject(json);
+		JSONObject jsonLocation = jsonObject.getJSONObject("location");
+		String city = jsonLocation.get("name").toString();
+		String country = jsonLocation.get("country").toString();
+		String condition = null;
+		String lowT = null;
+		String highT = null;
+		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
+		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
+		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
+			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
+			if (JSONObject_weather.get("date").equals(date)) {
+				condition = JSONObject_weather.getJSONObject("day").getJSONObject("condition").get("text").toString();
+				lowT = JSONObject_weather.getJSONObject("day").get("mintemp_c").toString();
+				highT = JSONObject_weather.getJSONObject("day").get("maxtemp_c").toString();
+				break;
+			}
+		}
+		String weatherDetails = String.format("%s in %s, %s, it’ll be %s with a high of %s°C and a low of %s°C.", date,
+				city, country, condition, highT, lowT);
+		System.out.println(weatherDetails);
+	}
+
 }

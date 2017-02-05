@@ -2,6 +2,8 @@ package gatetest;
 
 import java.io.File;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+
 import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
@@ -34,7 +36,7 @@ public class GateRunner {
 				.createResource("gate.creole.gazetteer.DefaultGazetteer");
 
 		LanguageAnalyser jape = (LanguageAnalyser) gate.Factory.createResource("gate.creole.Transducer",
-				gate.Utils.featureMap("grammarURL", new File("weather.jape").toURI().toURL(), "encoding", "UTF-8"));
+				gate.Utils.featureMap("grammarURL", new File("main.jape").toURI().toURL(), "encoding", "UTF-8"));
 
 		pipeline.add(sentenceSplitter);
 		pipeline.add(tokeniser);
@@ -55,9 +57,20 @@ public class GateRunner {
 		AnnotationSet annSet = doc.getAnnotations();
 
 		GateParser gateParser = new GateParser(doc);
-		JsonReader.checkForCondition(JsonReader.getJsonWithData(gateParser.getLocation(annSet)),
-				gateParser.isSpecificConditionCheck(annSet));
-		System.out.println(gateParser.getDate(annSet));
-		
+		String date = GateParser.getDate(annSet);
+
+		String condition = gateParser.isSpecificConditionCheck(annSet);
+		String temperature = gateParser.isCheckForTemperatureOrHumidity(annSet);
+		if (condition != null) {
+			JsonReader.checkForCondition(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), condition, date);
+		} else if (temperature != null) {
+			JsonReader.checkForTemperatureOrHumidity(JsonReader.getJsonWithData(gateParser.getLocation(annSet)),
+					temperature, date);
+		} else if (gateParser.isCheckForForecat(annSet)) {
+			JsonReader.returnForecast(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
+		} else {
+			System.out.println("I have no idea what you want!!");
+		}
+
 	}
 }
