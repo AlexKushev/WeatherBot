@@ -4,7 +4,7 @@ Imports: {
   import java.time.DayOfWeek;
 }
 
-Phase: Test2
+Phase: ConvertToDate
 Input: Date
 Options: control = appelt
 

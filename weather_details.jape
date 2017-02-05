@@ -1,4 +1,4 @@
-Phase: Test1
+Phase: WeatherDetailsPhase
 Input: Token
 Options: control = appelt
 

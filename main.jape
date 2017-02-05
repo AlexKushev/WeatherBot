@@ -1,0 +1,5 @@
+MultiPhase: TestTheGrammars
+Phases:
+weather
+weather_details
+date

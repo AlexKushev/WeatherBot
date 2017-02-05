@@ -1,4 +1,4 @@
-Phase:firstphase
+Phase: WeatherPhase
 Input: Lookup Token
 Options: control = appelt
 
