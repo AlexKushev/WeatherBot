@@ -4,3 +4,6 @@
 4. 1, 2, 3 for different date, day of the week - done
 5. take umbrella?
 6. is it raining/snowing etc. today - done (rainy, sunny?)
+7. Add training data for NaiveBayes
+8. Implement naive bayes 
+

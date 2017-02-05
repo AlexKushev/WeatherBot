@@ -1,0 +1,3 @@
+1. Can I play Football on certain day - add training data for 3-4 different sports.
+2. Can I go for a walk on certan day - add training data
+3. Can I go fisihing on certain day - add training data
