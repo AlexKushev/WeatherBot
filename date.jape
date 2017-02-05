@@ -23,14 +23,21 @@ Rule: ConvertDate
 
  if (rule.equals("GazDate")) {
    Calendar calendar = Calendar.getInstance();
-   String dayOfWeekToday = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.getTime());
-	 
-  while (calendar.get(Calendar.DAY_OF_WEEK) != DayOfWeek.valueOf(dayOfWeekToday.toUpperCase()).getValue()){
+    
+
+  String dayOfWeekToday = gate.Utils.stringFor(doc, dateAnn);  
+  int dayCode;
+  if (dayOfWeekToday.toUpperCase().equals(DayOfWeek.SUNDAY)) {
+    dayCode = 7;
+  } else {
+    dayCode = DayOfWeek.valueOf(dayOfWeekToday.toUpperCase()).getValue() + 1;
+  }
+  while (calendar.get(Calendar.DAY_OF_WEEK) != dayCode){
    	calendar.add(Calendar.DATE, 1);
    }
-
+System.out.println(DayOfWeek.valueOf(dayOfWeekToday.toUpperCase()).getValue());
    date = calendar.getTime();
- } else {
+ }  else {
    date = new Date();
  }
 
