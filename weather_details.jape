@@ -1,9 +1,0 @@
-Phase: WeatherDetailsPhase
-Input: Token
-Options: control = appelt
-
-Rule: WeatherDetails
-(
- {Token.string ==~ "[Hh]umidity"} | {Token.string ==~ "[Tt]emperature"}
-):match
---> :match.WeatherDetail = {rule = "WeatherDetails"}

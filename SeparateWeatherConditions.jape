@@ -1,0 +1,110 @@
+Phase: SeparateWeatherConditions
+Input: TempWeatherCondition Token
+Options: control = appelt
+
+Template: sun = "sun"
+Template: clear = "clear"
+Template: cloud = "cloud"
+Template: overcast = "overcast"
+Template: mist = "mist"
+Template: rain = "rain"
+Template: snow = "snow"
+Template: sleet = "sleet"
+Template: thunder = "thunder"
+Template: fog = "fog"
+
+Template: conditionAdjective = "((?i)${condition})[gnl]?y"
+Template: conditionRegex = "((?i)${condition})[a-zA-Z_]+"
+
+Rule: RuleToSeparateSunnyCondition
+(
+	{TempWeatherCondition.kind == [sun]} | 
+ 	{Token.root == [sun]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [sun]]} |
+ 	{Token.string ==~ [conditionRegex condition = [sun]]} 
+):match
+--> :match.WeatherCondition = {rule = "RuleForSunnyCondition", kind = "sun"}
+
+Rule: RuleToSeparateClearCondition
+(
+ 	{TempWeatherCondition.kind == [clear]} | 
+ 	{Token.root == [clear]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [clear]]} |
+ 	{Token.string ==~ [conditionRegex condition = [clear]]}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateClearCondition", kind = "clear"}
+
+Rule: RuleToSeparateCloudyCondition
+(
+	{TempWeatherCondition.kind == [cloud]} | 
+ 	{Token.root == [cloud]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [cloud]]} |
+ 	{Token.string ==~ [conditionRegex condition = [cloud]]}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateCloudyCondition", kind = "cloud"}
+
+Rule: RuleToSeparateOvercastCondition
+(
+	{TempWeatherCondition.kind == [overcast]} | 
+ 	{Token.root == [overcast]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [overcast]]} |
+ 	{Token.string ==~ [conditionRegex condition = [overcast]]}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateOvercastCondition", kind = "overcast"}
+
+Rule: RuleToSeparateMistCondition
+(
+	{TempWeatherCondition.kind == [mist]} | 
+ 	{Token.root == [mist]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [mist]]} |
+ 	{Token.string ==~ [conditionRegex condition = [mist]]} 
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateMistCondition", kind = "mist"}
+
+Rule: RuleToSeparateRainCondition
+(
+	{TempWeatherCondition.kind == [rain]} | 
+ 	{Token.root == [rain]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [rain]]} |
+ 	{Token.string ==~ [conditionRegex condition = [rain]]} |
+ 	{Token.category == "NN", Token.string ==~ "((?i)umbrella)"} | 
+ 	{Token.category == "NN", Token.string ==~ "((?i)raincoat)"}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateRainCondition", kind = "rain"}
+
+Rule: RuleToSeparateSnowCondition
+(
+	{TempWeatherCondition.kind == [snow]} | 
+ 	{Token.root == [snow]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [snow]]} |
+ 	{Token.string ==~ [conditionRegex condition = [snow]]} | 
+ 	{Token.category == "NN", Token.string ==~ "((?i)blizzard)"}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateSnowCondition", kind = "snow"}
+
+Rule: RuleToSeparateSleetCondition
+(
+	{TempWeatherCondition.kind == [sleet]} | 
+ 	{Token.root == [sleet]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [sleet]]} |
+ 	{Token.string ==~ [conditionRegex condition = [sleet]]} 
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateSleetCondition", kind = "sleet"}
+
+Rule: RuleToSeparateThunderCondition
+(
+	{TempWeatherCondition.kind == [thunder]} | 
+ 	{Token.root == [thunder]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [thunder]]} |
+ 	{Token.string ==~ [conditionRegex condition = [thunder]]}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateThunderCondition", kind = "thunder"}
+
+Rule: RuleToSeparateFogCondition
+(
+	{TempWeatherCondition.kind == [fog]} | 
+ 	{Token.root == [fog]} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [fog]]} |
+ 	{Token.string ==~ [conditionRegex condition = [fog]]}
+):match
+--> :match.WeatherCondition = {rule = "RuleToSeparateFogCondition", kind = "fog"}

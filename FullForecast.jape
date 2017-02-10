@@ -1,0 +1,9 @@
+Phase: FindFullForecast
+Input: Token
+Options: control = appelt
+
+Rule: RuleToFindFullForecast
+(
+ {Token.string ==~ "(?i)weather"} | {Token.string ==~ "(?i)forecast"}
+):match
+--> :match.Forecast = {rule = "RuleToFindFullForecast"}

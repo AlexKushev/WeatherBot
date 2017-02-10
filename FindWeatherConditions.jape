@@ -1,0 +1,20 @@
+Phase: FindWeatherConditions
+Input: Lookup
+Options: control = appelt
+
+Rule: RuleToFindWeatherConditions
+(
+ {Lookup.majorType == "weather"}
+):match
+-->
+{
+	gate.AnnotationSet weatherConditionsSet = (gate.AnnotationSet)bindings.get("match");
+	gate.Annotation weatherConditionAnn = (gate.Annotation)weatherConditionsSet.iterator().next();
+	gate.FeatureMap features = Factory.newFeatureMap();	
+
+	String matched = gate.Utils.stringFor(doc, weatherConditionAnn);
+
+	features.put("kind", matched);
+ 	features.put("rule", "RuleToFindWeatherConditions");
+ 	doc.getAnnotations().add(weatherConditionsSet.firstNode(), weatherConditionsSet.lastNode(), "TempWeatherCondition", features);
+}

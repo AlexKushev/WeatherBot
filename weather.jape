@@ -1,10 +1,13 @@
 Phase: WeatherPhase
-Input: Lookup Token
+Input: Token Lookup
 Options: control = appelt
 
 Rule: WeatherCondition
 (
-{Token.root == "rain"} | {Lookup.majorType == "weather"}
-): match
--->
-:match.WeatherCondition = {rule= "WeatherCondition" string=:match.Token.root }
+ (
+  {Token.root == "rain"} | {Token.root == "snow"} 
+ )
+ |
+ {Lookup.majorType == "weather"}
+):match
+-->:match.WeatherCondition = {rule = "WeatherCondition" string = :match.Token.root}

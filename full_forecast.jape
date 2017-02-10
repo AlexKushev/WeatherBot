@@ -1,9 +1,0 @@
-Phase: FullForecast
-Input: Token
-Options: control = appelt
-
-Rule: ForecastRule
-(
- {Token.string ==~ "[Ww]eather"} | {Token.string ==~ "[Ff]orecast"}
-):match
---> :match.Forecast = {rule = "ForecastRule"}

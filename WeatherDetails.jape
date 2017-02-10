@@ -1,0 +1,9 @@
+Phase: FindWeatherDetails
+Input: Token
+Options: control = appelt
+
+Rule: RuleToFindWeatherDetails
+(
+ {Token.string ==~ "(?i)humidity"} | {Token.string ==~ "(?i)temperature"}
+):match
+--> :match.WeatherDetail = {rule = "RuleToFindWeatherDetails"}
