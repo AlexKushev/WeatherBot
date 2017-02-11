@@ -2,26 +2,29 @@ package gatetest;
 
 import java.io.File;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-
 import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
 import gate.Gate;
 import gate.LanguageAnalyser;
+import gate.creole.ExecutionException;
+import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 
 public class GateRunner {
 
-	public void runner(String text) throws Exception {
+	SerialAnalyserController pipeline;
+
+	public void runner() throws Exception {
 		System.setProperty("gate.home", "/Applications/GATE_Developer_8.3/");
 
 		Gate.init();
 
 		Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "ANNIE").toURI().toURL());
 		Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "Tools").toURI().toURL());
-		SerialAnalyserController pipeline = (SerialAnalyserController) gate.Factory
-				.createResource("gate.creole.SerialAnalyserController");
+		this.pipeline = (SerialAnalyserController) gate.Factory.createResource("gate.creole.SerialAnalyserController");
+		LanguageAnalyser docResetter = (LanguageAnalyser) gate.Factory
+				.createResource("gate.creole.annotdelete.AnnotationDeletePR");
 		LanguageAnalyser sentenceSplitter = (LanguageAnalyser) gate.Factory
 				.createResource("gate.creole.splitter.SentenceSplitter");
 		LanguageAnalyser tokeniser = (LanguageAnalyser) gate.Factory
@@ -29,28 +32,31 @@ public class GateRunner {
 		LanguageAnalyser gazetteer = (LanguageAnalyser) gate.Factory
 				.createResource("gate.creole.gazetteer.DefaultGazetteer");
 		LanguageAnalyser neTrans = (LanguageAnalyser) gate.Factory.createResource("gate.creole.ANNIETransducer");
-
 		LanguageAnalyser posTagger = (LanguageAnalyser) gate.Factory.createResource("gate.creole.POSTagger");
 		LanguageAnalyser morph = (LanguageAnalyser) gate.Factory.createResource("gate.creole.morph.Morph");
-		LanguageAnalyser annieGazetteer = (LanguageAnalyser) gate.Factory
-				.createResource("gate.creole.gazetteer.DefaultGazetteer");
-
+		LanguageAnalyser orthoMatcher = (LanguageAnalyser) gate.Factory
+				.createResource("gate.creole.orthomatcher.OrthoMatcher");
 		LanguageAnalyser jape = (LanguageAnalyser) gate.Factory.createResource("gate.creole.Transducer",
 				gate.Utils.featureMap("grammarURL", new File("main.jape").toURI().toURL(), "encoding", "UTF-8"));
 
-		pipeline.add(sentenceSplitter);
-		pipeline.add(tokeniser);
-		pipeline.add(gazetteer);
-		pipeline.add(neTrans);
-		pipeline.add(posTagger);
-		pipeline.add(morph);
-		pipeline.add(annieGazetteer);
-		pipeline.add(jape);
+		this.pipeline.add(docResetter);
+		this.pipeline.add(tokeniser);
+		this.pipeline.add(sentenceSplitter);
+		this.pipeline.add(posTagger);
+		this.pipeline.add(morph);
+		this.pipeline.add(gazetteer);
+		this.pipeline.add(neTrans);
+		this.pipeline.add(orthoMatcher);
+		this.pipeline.add(jape);
+
+	}
+
+	public String test(String text) throws ResourceInstantiationException, ExecutionException {
 		Corpus corpus = gate.Factory.newCorpus(null);
 		Document doc = gate.Factory.newDocument(text);
 		corpus.add(doc);
-		pipeline.setCorpus(corpus);
-		pipeline.execute();
+		this.pipeline.setCorpus(corpus);
+		this.pipeline.execute();
 
 		System.out.println("Found annotations of the following types: " + doc.getAnnotations().getAllTypes());
 
@@ -62,14 +68,17 @@ public class GateRunner {
 		String condition = gateParser.isSpecificConditionCheck(annSet);
 		String temperature = gateParser.isCheckForTemperatureOrHumidity(annSet);
 		if (condition != null) {
-			JsonReader.checkForCondition(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), condition, date);
+			return JsonReader.checkForCondition(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), condition,
+					date);
 		} else if (temperature != null) {
-			JsonReader.checkForTemperatureOrHumidity(JsonReader.getJsonWithData(gateParser.getLocation(annSet)),
+			return JsonReader.checkForTemperatureOrHumidity(JsonReader.getJsonWithData(gateParser.getLocation(annSet)),
 					temperature, date);
 		} else if (gateParser.isCheckForForecat(annSet)) {
-			JsonReader.returnForecast(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
+			return JsonReader.returnForecast(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
+		} else if (gateParser.getAddExtraConditions(annSet)) {
+			return JsonReader.getUmbrella(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
 		} else {
-			System.out.println("I have no idea what you want!!");
+			return "I have no idea what you want";
 		}
 
 	}

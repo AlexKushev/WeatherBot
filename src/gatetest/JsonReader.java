@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +13,6 @@ import org.json.JSONObject;
 
 public class JsonReader {
 
-	private static String API_KEY = "09d51d887bc97a501affa2ab1511b63a";
 	private static String KEY = "00470eef42ab425393a165823170502";
 
 	public static String generateApiCallURL(String city) {
@@ -62,20 +60,7 @@ public class JsonReader {
 		return result;
 	}
 
-	public static void main(String[] args) throws ParseException {
-		String json = getJsonWithData("Sofia");
-		System.out.println(json);
-		JSONObject jsonObject = new JSONObject(json);
-		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
-		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
-		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
-			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
-			System.out.println(JSONObject_weather.get("date"));
-		}
-
-	}
-
-	public static void checkForCondition(String json, String condition, String date) {
+	public static String checkForCondition(String json, String condition, String date) {
 		String conditionForCurrentDay = null;
 		JSONObject jsonObject = new JSONObject(json);
 		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
@@ -89,30 +74,34 @@ public class JsonReader {
 			}
 		}
 
-		if (conditionForCurrentDay.toLowerCase().contains(condition.toLowerCase())) {
-			System.out.println("Yes ( " + conditionForCurrentDay + " )");
-		} else {
-			System.out.println("No ( " + conditionForCurrentDay + " )");
-		}
+		String botAnswer = null;
 
+		if (conditionForCurrentDay.toLowerCase().contains(condition.toLowerCase())) {
+			botAnswer = "Yes, " + conditionForCurrentDay + ".";
+		} else {
+			botAnswer = "No ( " + conditionForCurrentDay + " )";
+		}
+		return botAnswer;
 	}
 
-	public static void checkForTemperatureOrHumidity(String json, String text, String date) {
+	public static String checkForTemperatureOrHumidity(String json, String text, String date) {
 		String temperature = null;
 		JSONObject jsonObject = new JSONObject(json);
 		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
 		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
+		String botAnswer = null;
 		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
 			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
 			if (JSONObject_weather.get("date").equals(date)) {
 				temperature = JSONObject_weather.getJSONObject("day").get("avgtemp_c").toString();
-				System.out.println("Temperature : " + temperature);
+				botAnswer = "Temperature is " + temperature + ".";
 				break;
 			}
 		}
+		return botAnswer;
 	}
 
-	public static void returnForecast(String json, String date) {
+	public static String returnForecast(String json, String date) {
 		JSONObject jsonObject = new JSONObject(json);
 		JSONObject jsonLocation = jsonObject.getJSONObject("location");
 		String city = jsonLocation.get("name").toString();
@@ -133,7 +122,15 @@ public class JsonReader {
 		}
 		String weatherDetails = String.format("%s in %s, %s, it’ll be %s with a high of %s°C and a low of %s°C.", date,
 				city, country, condition, highT, lowT);
-		System.out.println(weatherDetails);
+		return weatherDetails;
+	}
+	
+	public static String getUmbrella(String json, String date) {
+		if (checkForCondition(json, "rain", date).contains("Yes") || checkForCondition(json, "snow", date).contains("Yes")) {
+			return "Yes, take your umbrella.";
+		} else {
+			return "No, you don'n need umbrella.";
+		}
 	}
 
 }

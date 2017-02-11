@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/alexkushev/Desktop/gate.jar"/>
+	<classpathentry kind="lib" path="/Users/alexkushev/Desktop/lib/gate.jar"/>
 	<classpathentry kind="lib" path="/Users/alexkushev/Desktop/lib/ant-1.9.3.jar"/>
 	<classpathentry kind="lib" path="/Users/alexkushev/Desktop/lib/ant-launcher-1.9.3.jar"/>
 	<classpathentry kind="lib" path="/Users/alexkushev/Desktop/lib/aopalliance-1.0.jar"/>
