@@ -181,19 +181,32 @@ public class JsonReader {
 	}
 
 	public static String getHumidity(String json, String date) {
-		String conditionForCurrentDay = null;
+		String hourDate = date.concat(" 16:00");
+		String humidity = null;
 		JSONObject jsonObject = new JSONObject(json);
 		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
 		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
 		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
 			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
 			if (JSONObject_weather.get("date").equals(date)) {
-				conditionForCurrentDay = JSONObject_weather.getJSONObject("day").getJSONObject("condition").get("text")
-						.toString();
+				JSONArray jsonHoursArray = JSONObject_weather.getJSONArray("hour");
+				for (int j = 0; j < jsonHoursArray.length(); j++) {
+					JSONObject jsonObjectHour = jsonHoursArray.getJSONObject(j);
+					if (jsonObjectHour.get("time").equals(hourDate)) {
+						humidity = jsonObjectHour.get("humidity").toString();
+						break;
+					}
+				}
+
 				break;
 			}
 		}
-		return "test";
+
+		Double humidityD = Double.parseDouble(humidity);
+		if (humidityD > 60) {
+			return "High";
+		}
+		return "Normal";
 	}
 
 	public static String returnForecast(String json, String date) {
