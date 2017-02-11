@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.locks.Condition;
 
 import gate.Annotation;
 import gate.AnnotationSet;
@@ -52,7 +51,8 @@ public class GateParser {
 			return null;
 		} else {
 			for (Annotation a : conditionsList) {
-				condition = Utils.stringFor(document, a);
+				condition = a.getFeatures().get("kind").toString();
+				System.out.println(condition);
 			}
 		}
 
@@ -60,7 +60,7 @@ public class GateParser {
 	}
 
 	public String isCheckForTemperatureOrHumidity(AnnotationSet annSet) {
-		String type = "WeatherDetails";
+		String type = "WeatherDetail";
 
 		String text = null;
 
