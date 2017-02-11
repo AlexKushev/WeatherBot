@@ -49,7 +49,6 @@ public class GateParser {
 				condition = a.getFeatures().get("kind").toString();
 			}
 		}
-		System.out.println(condition);
 		return condition;
 	}
 
@@ -117,6 +116,18 @@ public class GateParser {
 
 		return true;
 
+	}
+
+	public boolean isQuestion(AnnotationSet annSet) {
+		String type = "WeatherQuestionSentences";
+
+		AnnotationSet set = annSet.get(type);
+		List<Annotation> questionList = new ArrayList<Annotation>(set);
+
+		if (questionList.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 }
