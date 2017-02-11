@@ -66,9 +66,7 @@ Rule: RuleToSeparateRainCondition
 	{TempWeatherCondition.kind == [rain]} | 
  	{Token.root == [rain]} | 
  	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [rain]]} |
- 	{Token.string ==~ [conditionRegex condition = [rain]]} |
- 	{Token.category == "NN", Token.string ==~ "((?i)umbrella)"} | 
- 	{Token.category == "NN", Token.string ==~ "((?i)raincoat)"}
+ 	{Token.string ==~ [conditionRegex condition = [rain]]}
 ):match
 --> :match.WeatherCondition = {rule = "RuleToSeparateRainCondition", kind = "rain"}
 
