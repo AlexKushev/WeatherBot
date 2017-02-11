@@ -4,6 +4,6 @@ Options: control = appelt
 
 Rule: RuleToFindExtraConditions
 (
-	{Token.category == "MD"} {Token.category == "PRP"} ({Token.category == "VB", Token.string == "bring"} | {Token.category == "VB", Token.string == "take"} | {Token.category == "VB", Token.string == "need"}) {Token.category == "NN", Token.string ==~ "((?i)umbrella)"}
+	{Token.category == "NN", Token.string ==~ "((?i)umbrella)"}
 ):match
 --> :match.ExtraCondition = {rule = "RuleToFindExtraConditions", kind="rain" subkind="snow"}

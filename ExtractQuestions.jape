@@ -5,12 +5,14 @@ Options: control = appelt
 Rule: RuleToFindQuestionSentences
 (
 	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {Forecast}) |
+	({Token.category == "WP"} {Token.category == "MD"} {Token.category == "VB", Token.string == "be"} {Token.category == "DT"} {Forecast}) |
 	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {WeatherDetail}) |
 	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {WeatherCondition}) |
 	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {WeatherCondition}) | 
 	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {Token.category == "VB", Token.string == "be"} {WeatherCondition}) |
 	({Token.category == "MD"} {Token.category == "PRP"} {WeatherCondition}) |
-	({Token.category == "MD"} {Token.category == "PRP"} {Token.category == "VB", Token.string == "be"} {WeatherCondition})
+	({Token.category == "MD"} {Token.category == "PRP"} {Token.category == "VB", Token.string == "be"} {WeatherCondition}) |
+	{Token.category == "MD"} {Token.category == "PRP"} ({Token.category == "VB", Token.string == "bring"} | {Token.category == "VB", Token.string == "take"} | {Token.category == "VB", Token.string == "need"}) ({Token.category == "NN", Token.string ==~ "((?i)umbrella)"} | ({Token})* {Token.category == "NN", Token.string ==~ "((?i)umbrella)"})
 ):match
 -->
 {
