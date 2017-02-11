@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import gate.Annotation;
 import gate.AnnotationSet;
@@ -13,7 +12,6 @@ import gate.Utils;
 
 public class GateParser {
 
-	private Scanner scanner = new Scanner(System.in);
 	private Document document;
 
 	public GateParser(Document document) {
@@ -28,10 +26,7 @@ public class GateParser {
 		List<Annotation> locationsList = new ArrayList<Annotation>(locationSet);
 
 		if (locationsList.isEmpty()) {
-			System.out.println("No Location");
-			System.out.print("Enter Location : ");
-			location = scanner.nextLine();
-			System.out.println("Selected Location : " + location);
+			location = "Sofia";
 		} else {
 			for (Annotation a : locationsList) {
 				location = Utils.stringFor(document, a);
@@ -54,7 +49,7 @@ public class GateParser {
 				condition = a.getFeatures().get("kind").toString();
 			}
 		}
-
+		System.out.println(condition);
 		return condition;
 	}
 
@@ -107,6 +102,20 @@ public class GateParser {
 		}
 
 		return date;
+
+	}
+
+	public boolean getAddExtraConditions(AnnotationSet annSet) {
+		String type = "ExtraCondition";
+
+		AnnotationSet set = annSet.get(type);
+		List<Annotation> list = new ArrayList<Annotation>(set);
+
+		if (list.isEmpty()) {
+			return false;
+		}
+
+		return true;
 
 	}
 

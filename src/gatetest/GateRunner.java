@@ -75,6 +75,8 @@ public class GateRunner {
 					temperature, date);
 		} else if (gateParser.isCheckForForecat(annSet)) {
 			return JsonReader.returnForecast(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
+		} else if (gateParser.getAddExtraConditions(annSet)) {
+			return JsonReader.getUmbrella(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
 		} else {
 			return "I have no idea what you want";
 		}

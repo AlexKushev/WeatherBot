@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +77,7 @@ public class JsonReader {
 		String botAnswer = null;
 
 		if (conditionForCurrentDay.toLowerCase().contains(condition.toLowerCase())) {
-			botAnswer = "Yes ( " + conditionForCurrentDay + " )";
+			botAnswer = "Yes, " + conditionForCurrentDay + ".";
 		} else {
 			botAnswer = "No ( " + conditionForCurrentDay + " )";
 		}
@@ -95,7 +94,7 @@ public class JsonReader {
 			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
 			if (JSONObject_weather.get("date").equals(date)) {
 				temperature = JSONObject_weather.getJSONObject("day").get("avgtemp_c").toString();
-				botAnswer = "Temperature is " + temperature;
+				botAnswer = "Temperature is " + temperature + ".";
 				break;
 			}
 		}
@@ -124,6 +123,14 @@ public class JsonReader {
 		String weatherDetails = String.format("%s in %s, %s, it’ll be %s with a high of %s°C and a low of %s°C.", date,
 				city, country, condition, highT, lowT);
 		return weatherDetails;
+	}
+	
+	public static String getUmbrella(String json, String date) {
+		if (checkForCondition(json, "rain", date).contains("Yes") || checkForCondition(json, "snow", date).contains("Yes")) {
+			return "Yes, take your umbrella.";
+		} else {
+			return "No, you don'n need umbrella.";
+		}
 	}
 
 }
