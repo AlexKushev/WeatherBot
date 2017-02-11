@@ -29,7 +29,8 @@ Rule: ConvertDate
   String dayOfWeekToday = gate.Utils.stringFor(doc, dateAnn);  
   int dayCode;
   if (dayOfWeekToday.toUpperCase().equals(DayOfWeek.SUNDAY)) {
-    dayCode = 7;
+   System.out.println("blblqlbqlbq"); 
+   dayCode = 1;
   } else {
     dayCode = DayOfWeek.valueOf(dayOfWeekToday.toUpperCase()).getValue() + 1;
   }
