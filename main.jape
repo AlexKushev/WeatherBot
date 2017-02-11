@@ -3,5 +3,7 @@ Phases:
 FullForecast
 FindWeatherConditions
 SeparateWeatherConditions
+AddExtraConditions
 WeatherDetails
 Date
+ExtractQuestions

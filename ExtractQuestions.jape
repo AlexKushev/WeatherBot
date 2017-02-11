@@ -1,0 +1,42 @@
+Phase: FindQuestions
+Input: Token Forecast WeatherDetail WeatherCondition
+Options: control = appelt
+
+Rule: RuleToFindQuestionSentences
+(
+	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {Forecast}) |
+	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {WeatherDetail}) |
+	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {WeatherCondition}) |
+	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {WeatherCondition}) | 
+	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {Token.category == "VB", Token.string == "be"} {WeatherCondition}) |
+	({Token.category == "MD"} {Token.category == "PRP"} {WeatherCondition}) |
+	({Token.category == "MD"} {Token.category == "PRP"} {Token.category == "VB", Token.string == "be"} {WeatherCondition})
+):match
+-->
+{
+	gate.AnnotationSet matchAnnotationSet = (gate.AnnotationSet) bindings.get("match");
+	gate.AnnotationSet forecastAnnotationSet = gate.Utils.getContainedAnnotations(inputAS, matchAnnotationSet, "Forecast");
+	gate.AnnotationSet weatherDetailAnnotationSet = gate.Utils.getContainedAnnotations(inputAS, matchAnnotationSet, "WeatherDetail");
+	gate.AnnotationSet weatherConditionAnnotationSet = gate.Utils.getContainedAnnotations(inputAS, matchAnnotationSet, "WeatherCondition");
+
+	String key = "";
+	if (!forecastAnnotationSet.isEmpty()) {
+		gate.Annotation forecastAnnotation = (gate.Annotation) forecastAnnotationSet.iterator().next();
+		key = gate.Utils.stringFor(doc, forecastAnnotation);
+	}
+
+	if (!weatherDetailAnnotationSet.isEmpty()) {
+		gate.Annotation weatherDetailAnnotation = (gate.Annotation) weatherDetailAnnotationSet.iterator().next();
+		key = gate.Utils.stringFor(doc, weatherDetailAnnotation);
+	}
+
+	if (!weatherConditionAnnotationSet.isEmpty()) {
+		gate.Annotation weatherConditionAnnotation = (gate.Annotation) weatherConditionAnnotationSet.iterator().next();
+		key = gate.Utils.stringFor(doc, weatherConditionAnnotation);
+	}
+
+	gate.FeatureMap features = Factory.newFeatureMap();
+	features.put("key", key);
+ 	features.put("rule", "RuleToFindQuestionSentences");
+ 	doc.getAnnotations().add(matchAnnotationSet.firstNode(), matchAnnotationSet.lastNode(), "WeatherQuestionSentences", features);
+}

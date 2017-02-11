@@ -18,12 +18,12 @@ Template: conditionRegex = "((?i)${condition})[a-zA-Z_]+"
 
 Rule: RuleToSeparateSunnyCondition
 (
-	{TempWeatherCondition.kind == [sun]} | 
- 	{Token.root == [sun]} | 
- 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [sun]]} |
- 	{Token.string ==~ [conditionRegex condition = [sun]]} 
+	{TempWeatherCondition.kind == [sun], !Token.string ==~ "(?i)sunday"} | 
+ 	{Token.root == [sun], !Token.string ==~ "(?i)sunday"} | 
+ 	{Token.category == "JJ", Token.string ==~ [conditionAdjective condition = [sun]], !Token.string ==~ "(?i)sunday"} |
+ 	{Token.string ==~ [conditionRegex condition = [sun]], !Token.string ==~ "(?i)sunday"}
 ):match
---> :match.WeatherCondition = {rule = "RuleForSunnyCondition", kind = "sun"}
+--> :match.WeatherCondition = {rule = "RuleForSunnyCondition", kind = "sunny"}
 
 Rule: RuleToSeparateClearCondition
 (
