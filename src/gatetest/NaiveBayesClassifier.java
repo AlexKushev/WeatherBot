@@ -17,8 +17,8 @@ public class NaiveBayesClassifier {
 		prior = new double[2];
 	}
 	
-	public String classify(String[] testInstance) {
-		loadTrainingSet("data.txt");
+	public String classify(String[] testInstance, String fileName) {
+		loadTrainingSet(fileName);
 		calculatePriorProbabilities();		
 		double[] posterior = calculatePosteriorNumerators(testInstance);
 		double bestProbability = -1;

@@ -129,5 +129,9 @@ public class GateParser {
 		}
 		return true;
 	}
+	
+	public boolean shouldNaiveBayes(AnnotationSet annSet) {
+		return true;
+	}
 
 }
