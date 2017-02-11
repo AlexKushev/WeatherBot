@@ -61,19 +61,6 @@ public class JsonReader {
 		return result;
 	}
 
-	public static void main(String[] args) throws ParseException {
-		String json = getJsonWithData("Sofia");
-		System.out.println(json);
-		JSONObject jsonObject = new JSONObject(json);
-		JSONObject jsonObjectForecast = jsonObject.getJSONObject("forecast");
-		JSONArray jsonArrayForecastDay = jsonObjectForecast.getJSONArray("forecastday");
-		for (int i = 0; i < jsonArrayForecastDay.length(); i++) {
-			JSONObject JSONObject_weather = jsonArrayForecastDay.getJSONObject(i);
-			System.out.println(JSONObject_weather.get("date"));
-		}
-
-	}
-
 	public static String checkForCondition(String json, String condition, String date) {
 		String conditionForCurrentDay = null;
 		JSONObject jsonObject = new JSONObject(json);

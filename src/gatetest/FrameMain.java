@@ -10,7 +10,5 @@ public class FrameMain {
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setVisible(true);
-
 	}
-
 }

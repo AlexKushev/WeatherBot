@@ -89,11 +89,9 @@ public class WeatherPanel extends javax.swing.JPanel {
 	}// </editor-fold>
 
 	private void askButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		textArea.setForeground(Color.black);
 		String userString = textField.getText();
 		if (userString.equals("") || userString.equals(" ")) {
 			textArea.append("You should enter some text!\n");
-			textArea.setForeground(Color.red);
 			return;
 		}
 		String generateUserStringRepresentation = apiSpeechGenerator.getUserSpeech(userString);

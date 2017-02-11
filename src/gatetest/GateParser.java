@@ -52,7 +52,6 @@ public class GateParser {
 		} else {
 			for (Annotation a : conditionsList) {
 				condition = a.getFeatures().get("kind").toString();
-				System.out.println(condition);
 			}
 		}
 
