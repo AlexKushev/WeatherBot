@@ -2,17 +2,43 @@ Phase: FindQuestions
 Input: Token Forecast WeatherDetail WeatherCondition
 Options: control = appelt
 
+Macro: POSSIBLE_VERBS
+(
+	{Token.category == "VB", Token.string == "bring"} | 
+	{Token.category == "VB", Token.string == "take"} | 
+	{Token.category == "VB", Token.string == "need"}
+)
+
+Macro: QUESTIONS_WITH_WH_WORD
+(
+	{Token.category == "WP"} 
+	(({Token.category == "VBZ", Token.root == "be"} {Token.category == "VBG", Token.root == "go"} {Token.category == "TO"} {Token.category == "VB"}) | ({Token.category == "MD"} {Token.category == "VB", Token.string == "be"}) | {Token.category == "VBZ", Token.root == "be"}) 
+	({Token.category == "DT"} | ({Token.kind == "word"})?) 
+	({Forecast} | {WeatherDetail} | ({Token.category == "JJ"} {WeatherDetail}))
+)
+
+Macro: QUESTIONS_INVERSE_WITH_MODAL
+(
+	({Token.category == "MD"} {Token.category == "PRP"} {WeatherCondition}) |
+	({Token.category == "MD"} ({Token.category == "PRP"} | ({Token.category == "DT"} {Forecast})) {Token.category == "VB", Token.string == "be"} {WeatherCondition})
+)
+
+Macro: QUESTIONS_INVERSE
+(
+	{Token.category == "VBZ", Token.root == "be"} ({Token.category == "PRP"} | ({Token.category == "DT"} {Forecast})) ({Token.category == "VBG"} {Token.category == "TO"} ({Token.category == "VB", Token.string == "be"})?)? {WeatherCondition}
+)
+
+Macro: QUESTIONS_SPECIAL
+(
+	({Token.category == "MD"} {Token.category == "PRP"} (POSSIBLE_VERBS) ({Token.category == "NN", Token.string ==~ "((?i)umbrella)"} | ({Token.kind == "word"})* {Token.category == "NN", Token.string ==~ "((?i)umbrella)"})) | 
+	({Token.category == "MD"} {Token.category == "PRP"} ((POSSIBLE_VERBS) | {Token.category == "VB", Token.string == "wear"}) ({Token.category == "NN", Token.string ==~ "((?i)raincoat)"} | ({Token.kind == "word"})* {Token.category == "NN", Token.string ==~ "((?i)raincoat)"})) | 
+	({Token.category == "MD"} {Token.category == "PRP"} ((POSSIBLE_VERBS) | {Token.category == "VB", Token.string == "wear"}) ({Token.category == "NNS", Token.string ==~ "((?i)sunglasses)"} | ({Token.kind == "word"})* {Token.category == "NNS", Token.string ==~ "((?i)sunglasses)"}))
+)
+
 Rule: RuleToFindQuestionSentences
 (
-	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {Forecast}) |
-	({Token.category == "WP"} {Token.category == "MD"} {Token.category == "VB", Token.string == "be"} {Token.category == "DT"} {Forecast}) |
-	({Token.category == "WP"} {Token.category == "VBZ", Token.root == "be"} {Token.category == "DT"} {WeatherDetail}) |
-	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {WeatherCondition}) |
-	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {WeatherCondition}) | 
-	({Token.category == "VBZ", Token.root == "be"} {Token.category == "PRP"} {Token.category == "VBG"} {Token.category == "TO"} {Token.category == "VB", Token.string == "be"} {WeatherCondition}) |
-	({Token.category == "MD"} {Token.category == "PRP"} {WeatherCondition}) |
-	({Token.category == "MD"} {Token.category == "PRP"} {Token.category == "VB", Token.string == "be"} {WeatherCondition}) |
-	{Token.category == "MD"} {Token.category == "PRP"} ({Token.category == "VB", Token.string == "bring"} | {Token.category == "VB", Token.string == "take"} | {Token.category == "VB", Token.string == "need"}) ({Token.category == "NN", Token.string ==~ "((?i)umbrella)"} | ({Token})* {Token.category == "NN", Token.string ==~ "((?i)umbrella)"})
+	(QUESTIONS_WITH_WH_WORD) | (QUESTIONS_INVERSE_WITH_MODAL) | (QUESTIONS_INVERSE) | (QUESTIONS_SPECIAL)
+	
 ):match
 -->
 {
