@@ -62,17 +62,17 @@ public class GateRunner {
 
 		AnnotationSet annSet = doc.getAnnotations();
 		GateParser gateParser = new GateParser(doc);
-		
+
 		if (!gateParser.isQuestion(annSet)) {
 			return "This is not weather question.";
-			
+
 		}
 
 		String date = GateParser.getDate(annSet);
 
 		String condition = gateParser.isSpecificConditionCheck(annSet);
 		String temperature = gateParser.isCheckForTemperatureOrHumidity(annSet);
-	
+
 		if (condition != null) {
 			return JsonReader.checkForCondition(JsonReader.getJsonWithData(gateParser.getLocation(annSet)), condition,
 					date);
