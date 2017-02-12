@@ -15,7 +15,7 @@ Rule: RuleToFindSports
 :football.NaiveBayesCondition = {rule = "RuleToFindSports", kind = "football"},
 :other.NaiveBayesCondition = {rule = "RuleToFindSports", kind = :other.Token.string},
 :unknown.NaiveBayesCondition = {rule = "RuleToFindSports", kind = :unknown.Token.string},
-:sport.Sport = {rule = "RuleToFindSports", kind = "sleep"}
+:sport.Sport = {rule = "RuleToFindSports"}
 
 Rule: RuleToFindActivities
 (
@@ -29,5 +29,4 @@ Rule: RuleToFindActivities
 :jogging.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = "jogging"},
 :unknown.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = :unknown.Token.string},
 :bike.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = "bike"},
-:activity.Activity = {rule = "RuleToFindActivities", kind = "sleep"}
-
+:activity.Activity = {rule = "RuleToFindActivities"}
