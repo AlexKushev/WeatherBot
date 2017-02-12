@@ -36,8 +36,8 @@ public class GateRunner {
 		LanguageAnalyser morph = (LanguageAnalyser) gate.Factory.createResource("gate.creole.morph.Morph");
 		LanguageAnalyser orthoMatcher = (LanguageAnalyser) gate.Factory
 				.createResource("gate.creole.orthomatcher.OrthoMatcher");
-		LanguageAnalyser jape = (LanguageAnalyser) gate.Factory.createResource("gate.creole.Transducer",
-				gate.Utils.featureMap("grammarURL", new File("japeRules/main.jape").toURI().toURL(), "encoding", "UTF-8"));
+		LanguageAnalyser jape = (LanguageAnalyser) gate.Factory.createResource("gate.creole.Transducer", gate.Utils
+				.featureMap("grammarURL", new File("japeRules/main.jape").toURI().toURL(), "encoding", "UTF-8"));
 
 		this.pipeline.add(docResetter);
 		this.pipeline.add(tokeniser);
@@ -62,13 +62,16 @@ public class GateRunner {
 
 		AnnotationSet annSet = doc.getAnnotations();
 		GateParser gateParser = new GateParser(doc);
+		String date = GateParser.getDate(annSet);
 
 		if (!gateParser.isQuestion(annSet)) {
-			return "This is not weather question.";
-
+			if (gateParser.isNaiveBayesQuestion(annSet)) {
+				return gateParser.checkNaiveBayesCondition(annSet,
+						JsonReader.getJsonWithData(gateParser.getLocation(annSet)), date);
+			} else {
+				return "This is not weather question (or it is not supported by SAM).";
+			}
 		}
-
-		String date = GateParser.getDate(annSet);
 
 		String condition = gateParser.isSpecificConditionCheck(annSet);
 		String temperature = gateParser.isCheckForTemperatureOrHumidity(annSet);
