@@ -1,0 +1,33 @@
+Phase: FindNaiveBayesConditions
+Input: Token
+Options: control = appelt
+
+Rule: RuleToFindSports
+(
+	({Token.category == "NN", Token.string == "basketball"}):basketball | 
+	({Token.category == "NN", Token.string == "football"}):football | 
+	(({Token.category == "VB", Token.root == "play"} ({Token.category == "NN"}):other) | 
+	 ({Token.category == "VBG", Token.root == "play"} ({Token.category == "NN"}):unknown)
+	)
+):sport
+-->
+:basketball.NaiveBayesCondition = {rule = "RuleToFindSports", kind = "basketball"},
+:football.NaiveBayesCondition = {rule = "RuleToFindSports", kind = "football"},
+:other.NaiveBayesCondition = {rule = "RuleToFindSports", kind = :other.Token.string},
+:unknown.NaiveBayesCondition = {rule = "RuleToFindSports", kind = :unknown.Token.string},
+:sport.Sport = {rule = "RuleToFindSports", kind = "sleep"}
+
+Rule: RuleToFindActivities
+(
+	({Token.category == "VB", Token.root == "go"} | {Token.category == "VBG", Token.root == "go"}) {Token.category == "IN"} {Token.category == "DT"} ({Token.category == "NN", Token.string == "walk"}):walk |
+	{Token.category == "VB", Token.root == "go"} ({Token.string == "jogging"}):jogging | 
+	{Token.category == "VB", Token.root == "go"} ({Token.category == "NN"}):unknown | 
+	({Token.category == "VB", Token.root == "ride"} | {Token.category == "VBG", Token.root == "ride"} | {Token.category == "VBP", Token.root == "ride"}) ({Token.category == "DT"} | {Token.category == "PRP$"} | ({Token.kind == "word"})*) ({Token.category == "NN", Token.string == "bike"}):bike
+):activity
+-->
+:walk.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = "walk"},
+:jogging.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = "jogging"},
+:unknown.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = :unknown.Token.string},
+:bike.NaiveBayesCondition = {rule = "RuleToFindActivities", kind = "bike"},
+:activity.Activity = {rule = "RuleToFindActivities", kind = "sleep"}
+

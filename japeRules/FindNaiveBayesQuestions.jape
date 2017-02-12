@@ -1,0 +1,10 @@
+Phase: FindNaiveBayesQuestions
+Input: Token Forecast Sport Activity
+Options: control = appelt
+
+Rule: RuleToFindNaiveBayesQuestions
+(
+	({Token.category == "MD"} {Token.category == "PRP"} ({Sport} | {Activity})) |
+	({Token.category == "VBZ", Token.root == "be"} ({Token.category == "DT"})? {Forecast} {Token.category == "JJ"} ({Token.kind == "word"})* ({Sport} | {Activity}))
+):match
+--> :match.NaiveBayesQuestion = {rule = "RuleToFindNaiveBayesQuestions"}

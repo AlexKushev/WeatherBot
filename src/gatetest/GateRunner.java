@@ -37,7 +37,7 @@ public class GateRunner {
 		LanguageAnalyser orthoMatcher = (LanguageAnalyser) gate.Factory
 				.createResource("gate.creole.orthomatcher.OrthoMatcher");
 		LanguageAnalyser jape = (LanguageAnalyser) gate.Factory.createResource("gate.creole.Transducer",
-				gate.Utils.featureMap("grammarURL", new File("main.jape").toURI().toURL(), "encoding", "UTF-8"));
+				gate.Utils.featureMap("grammarURL", new File("japeRules/main.jape").toURI().toURL(), "encoding", "UTF-8"));
 
 		this.pipeline.add(docResetter);
 		this.pipeline.add(tokeniser);

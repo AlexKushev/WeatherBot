@@ -7,3 +7,5 @@ AddExtraConditions
 WeatherDetails
 Date
 ExtractQuestions
+FindNaiveBayesConditions
+FindNaiveBayesQuestions
