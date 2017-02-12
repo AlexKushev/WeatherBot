@@ -2,53 +2,53 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/gate.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/ant-1.9.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/ant-launcher-1.9.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/apache-mime4j-core-0.7.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/apache-mime4j-dom-0.7.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/bcmail-jdk15-1.45.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/bcprov-jdk15-1.45.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/commons-compress-1.8.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/flying-saucer-core-9.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/fontbox-1.8.8.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/gate-asm-5.0.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/gate-compiler-jdt-4.3.2-P20140317-1600.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/ivy-2.3.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jackson-annotations-2.3.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jackson-core-2.3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jackson-databind-2.3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/java-getopt-1.0.13.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jaxen-1.1.6.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jdom-1.1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/jempbox-1.8.8.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/joda-time-2.9.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/nekohtml-1.9.14.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/pdfbox-1.8.8.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/poi-3.11.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/poi-ooxml-3.11.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/poi-ooxml-schemas-3.11.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/poi-scratchpad-3.11.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/spring-aop-2.5.6.SEC01.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/spring-beans-2.5.6.SEC01.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/spring-core-2.5.6.SEC01.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/stax2-api-3.1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/tika-core-1.7.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/tika-parsers-1.7.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/woodstox-core-lgpl-4.2.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/xercesImpl-2.9.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/xmlunit-1.5.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/xpp3-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Desktop/lib/xstream-1.4.7.jar"/>
-	<classpathentry kind="lib" path="/Users/Marina/Downloads/json-20140107.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/bin/gate.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/ant-1.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/ant-launcher-1.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/apache-mime4j-core-0.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/apache-mime4j-dom-0.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/bcmail-jdk15-1.45.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/bcprov-jdk15-1.45.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/commons-compress-1.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/flying-saucer-core-9.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/fontbox-1.8.8.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/gate-asm-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/gate-compiler-jdt-4.3.2-P20140317-1600.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/ivy-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jackson-annotations-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jackson-core-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jackson-databind-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/java-getopt-1.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jaxen-1.1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jdom-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/jempbox-1.8.8.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/joda-time-2.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/nekohtml-1.9.14.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/pdfbox-1.8.8.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/poi-3.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/poi-ooxml-3.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/poi-ooxml-schemas-3.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/poi-scratchpad-3.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/spring-aop-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/spring-beans-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/spring-core-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/stax2-api-3.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/tika-core-1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/tika-parsers-1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/woodstox-core-lgpl-4.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/xercesImpl-2.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/xmlunit-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/GATE_Developer_8.3/lib/xstream-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Irrealizable/Desktop/json-20140107.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

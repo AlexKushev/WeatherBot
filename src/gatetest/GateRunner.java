@@ -16,7 +16,7 @@ public class GateRunner {
 	SerialAnalyserController pipeline;
 
 	public void runner() throws Exception {
-		System.setProperty("gate.home", "/Applications/GATE_Developer_8.3/");
+		System.setProperty("gate.home", "C:/Program Files/GATE_Developer_8.3");
 
 		Gate.init();
 
