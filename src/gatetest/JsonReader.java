@@ -228,7 +228,7 @@ public class JsonReader {
 				break;
 			}
 		}
-		String weatherDetails = String.format("%s in %s, %s, itâ€™ll be %s with a high of %sÂ°C and a low of %sÂ°C.", date,
+		String weatherDetails = String.format("%s in %s, %s, it will be %s with a high of %s °C and a low of %s °C.", date,
 				city, country, condition, highT, lowT);
 		return weatherDetails;
 	}
@@ -238,7 +238,7 @@ public class JsonReader {
 				|| checkForCondition(json, "snow", date).contains("Yes")) {
 			return "Yes, take your umbrella.";
 		} else {
-			return "No, you don'n need umbrella.";
+			return "No, you don't need umbrella.";
 		}
 	}
 

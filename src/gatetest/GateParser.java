@@ -129,19 +129,19 @@ public class GateParser {
 		}
 		return true;
 	}
-	
+
 	public boolean isNaiveBayesQuestion(AnnotationSet annSet) {
 		String type = "NaiveBayesQuestion";
-		
+
 		AnnotationSet naiveBayesSet = annSet.get(type);
 		List<Annotation> naiveBayesList = new ArrayList<Annotation>(naiveBayesSet);
-		
+
 		if (naiveBayesList.isEmpty()) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public String checkNaiveBayesCondition(AnnotationSet annSet, String json, String date) {
 		String type = "NaiveBayesCondition";
 		String activity = null;
@@ -162,19 +162,18 @@ public class GateParser {
 		arr[3] = JsonReader.getWind(json, date);
 		String naiveBayesResult = nb.classify(arr, "TrainingSets/" + fileName);
 		
+		String result = String.format(", it`s going to %s, it will be %s with %s humidity", arr[0],arr[1],arr[2]);
+		
 		if (naiveBayesResult.equals("Yes")) {
-			return "Yes";
+			return "Yes".concat(result);
 		} else {
-			return "No";
+			return "No".concat(result);
 		}
 		
 	}
-	
-	
+
 	public boolean shouldNaiveBayes(AnnotationSet annSet) {
 		return true;
 	}
-	
-	
 
 }
